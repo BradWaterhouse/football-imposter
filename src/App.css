@@ -3,39 +3,78 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  /* Prevent overscroll on all elements */
+  overscroll-behavior: none;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  /* Prevent overscroll bounce and set background color */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  background: #0f0e17;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0f0e17 0%, #1a1826 100%);
+  background: #0f0e17;
   color: #fffffe;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   line-height: 1.5;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+  /* Safari specific fixes */
+  -webkit-appearance: none;
+  -webkit-overflow-scrolling: touch;
+  background-attachment: fixed;
+  /* Safari safe area support */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  /* Prevent overscroll bounce */
+  overscroll-behavior-y: none;
+  -webkit-overscroll-behavior-y: none;
 }
 
 .App {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   background: linear-gradient(135deg, #0f0e17 0%, #1a1826 100%);
+  background-attachment: fixed;
   padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Safari background fix */
+  min-height: -webkit-fill-available;
 }
 
 .container {
   width: 100%;
-  min-height: 100vh;
-  padding: 20px 16px;
+  height: 100%;
+  padding: 16px;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  /* Prevent overscroll in scrollable areas */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 h1 {
   color: #fffffe;
-  margin-bottom: 32px;
-  font-size: 2.2rem;
+  margin-bottom: 20px;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
   letter-spacing: -0.02em;
@@ -282,32 +321,36 @@ input:focus, select:focus {
 
 /* Mobile-First Setup Design */
 .mobile-setup {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #0f0e17 0%, #1a1826 100%);
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .setup-header {
-  padding: 24px 20px;
+  padding: 16px 20px 12px 20px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 137, 6, 0.2);
+  flex-shrink: 0;
 }
 
 .game-stats {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .stat-card {
   background: rgba(255, 137, 6, 0.15);
   border: 2px solid rgba(255, 137, 6, 0.3);
-  border-radius: 16px;
-  padding: 16px 24px;
+  border-radius: 12px;
+  padding: 12px 20px;
   text-align: center;
-  min-width: 80px;
+  min-width: 70px;
 }
 
 .stat-number {
@@ -329,12 +372,16 @@ input:focus, select:focus {
 
 .setup-content {
   flex: 1;
-  padding: 24px 20px;
+  padding: 16px 20px;
   overflow-y: auto;
+  min-height: 0;
+  /* Prevent overscroll in scrollable areas */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .section {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .section-title {
@@ -487,8 +534,9 @@ input:focus, select:focus {
 }
 
 .start-section {
-  padding: 20px;
+  padding: 16px 20px;
   border-top: 1px solid rgba(255, 137, 6, 0.2);
+  flex-shrink: 0;
 }
 
 .start-btn {
@@ -529,16 +577,20 @@ input:focus, select:focus {
 
 /* Reveal Screen Design */
 .reveal-screen {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #0f0e17 0%, #1a1826 100%);
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .reveal-header {
-  padding: 24px 20px;
+  padding: 16px 20px 12px 20px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 137, 6, 0.2);
+  flex-shrink: 0;
 }
 
 .reveal-header h1 {
@@ -574,11 +626,16 @@ input:focus, select:focus {
 
 .players-tiles {
   flex: 1;
-  padding: 24px 20px;
+  padding: 16px 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
+  gap: 12px;
   align-content: start;
+  overflow-y: auto;
+  min-height: 0;
+  /* Prevent overscroll in scrollable areas */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .player-tile {
@@ -631,11 +688,12 @@ input:focus, select:focus {
 }
 
 .reveal-footer {
-  padding: 20px;
+  padding: 16px 20px;
   border-top: 1px solid rgba(255, 137, 6, 0.2);
   display: flex;
   gap: 12px;
   align-items: stretch;
+  flex-shrink: 0;
 }
 
 .new-game-btn {
@@ -682,12 +740,15 @@ input:focus, select:focus {
 
 /* Role Reveal Screen */
 .role-reveal-screen {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0f0e17 0%, #1a1826 100%);
+  background-attachment: fixed;
   padding: 20px;
+  overflow: hidden;
 }
 
 .role-reveal-content {
@@ -749,10 +810,21 @@ input:focus, select:focus {
   box-shadow: 0 2px 10px rgba(255, 137, 6, 0.2);
 }
 
+/* Safari specific viewport fixes */
+@supports (-webkit-touch-callout: none) {
+  .App, .mobile-setup, .reveal-screen, .role-reveal-screen {
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    height: -webkit-fill-available;
+  }
+}
+
 @media (max-width: 480px) {
   h1 {
-    font-size: 2.2rem;
-    margin-bottom: 32px;
+    font-size: 1.8rem;
+    margin-bottom: 16px;
   }
   
   .word-display {
@@ -773,6 +845,18 @@ input:focus, select:focus {
   }
   
   .container {
-    padding: 16px;
+    padding: 12px;
+  }
+  
+  .setup-header, .reveal-header {
+    padding: 12px 16px 8px 16px;
+  }
+  
+  .setup-content, .players-tiles {
+    padding: 12px 16px;
+  }
+  
+  .start-section, .reveal-footer {
+    padding: 12px 16px;
   }
 }
